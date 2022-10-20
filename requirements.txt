@@ -1,0 +1,7 @@
+
+# NOTE: Use Python 3.8 (or newer)
+
+ansible
+ansible-lint
+molecule
+molecule-docker # or molecule-podman

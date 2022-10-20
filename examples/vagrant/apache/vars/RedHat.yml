@@ -1,0 +1,7 @@
+---
+
+apache_service: httpd
+
+__apache_packages:
+  - httpd
+  - httpd-devel

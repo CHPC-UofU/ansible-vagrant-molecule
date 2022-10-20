@@ -1,0 +1,12 @@
+---
+
+servers:
+  - hostname: "rocky86.vagrant.test"
+    box: "bento/rockylinux-8.6"
+    box_version: "202206.14.0"
+  - hostname: "centos7.vagrant.test"
+    box: "centos/7"
+    box_version: "2004.01"
+  - hostname: "ubuntu2004.vagrant.test"
+    box: "ubuntu/focal64"
+    box_version: "20221017.0.0"

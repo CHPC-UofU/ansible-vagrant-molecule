@@ -1,0 +1,45 @@
+---
+
+- name: Print OS and distro Ansible variables collected by setup
+  ansible.builtin.debug:
+    msg:
+      - "ansible_os_family: {{ ansible_os_family }}"
+      - "ansible_distribution: {{ ansible_distribution }}"
+      - "ansible_distribution_major_version: {{ ansible_distribution_major_version }}"
+      - "ansible_distribution_version: {{ ansible_distribution_version }}"
+      - "ansible_distribution_release: {{ ansible_distribution_release }}"
+
+- name: Include role's metadata
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/meta/main.yml"
+
+- name: Set facts from role metadata
+  ansible.builtin.set_fact:
+    role_tags: "{{ galaxy_info.galaxy_tags }}"
+    full_host_distro: "{{ ansible_distribution | lower }}{{ ansible_distribution_major_version }}"
+
+- name: Error if host distro not supported by role
+  when: full_host_distro not in role_tags
+  block:
+    - name: Display message
+      ansible.builtin.debug:
+        msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }} not supported. End of host."
+    - name: End the play
+      ansible.builtin.meta: end_host
+
+- name: Include OS-specific variables
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define apache_packages
+  ansible.builtin.set_fact:
+    apache_packages: "{{ __apache_packages | list }}"
+  when: apache_packages is not defined
+
+- name: Include OS-specific tasks
+  ansible.builtin.include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Ensure Apache service has selected state
+  ansible.builtin.service:
+    name: "{{ apache_service }}"
+    state: "{{ apache_state }}"
+    enabled: "{{ apache_enabled }}"

@@ -1,0 +1,5 @@
+---
+
+apache_enabled: yes
+apache_packages_state: present
+apache_state: started

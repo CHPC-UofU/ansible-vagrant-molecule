@@ -1,0 +1,6 @@
+---
+
+- name: Install Apache on RedHat
+  ansible.builtin.package:
+    name: "{{ apache_packages }}"
+    state: "{{ apache_packages_state }}"

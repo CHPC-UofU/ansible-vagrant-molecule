@@ -38,6 +38,17 @@
 - name: Include OS-specific tasks
   ansible.builtin.include_tasks: "{{ ansible_os_family }}.yml"
 
+- name: Add custom homepage
+  ansible.builtin.copy:
+    src: 'files/{{ item }}'
+    dest: '/var/www/html/{{ item }}'
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - index.html
+    - rocinante.png
+
 - name: Ensure Apache service has selected state
   ansible.builtin.service:
     name: "{{ apache_service }}"

@@ -9,7 +9,7 @@ lint: |
   ansible-lint
 platforms:
   - name: instance
-    image: ghcr.io/chpc-uofu/container-rockylinux8.6.20227707-ansible:latest
+    image: ghcr.io/chpc-uofu/container-rockylinux8.6-ansible:latest
     command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

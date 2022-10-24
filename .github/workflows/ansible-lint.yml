@@ -38,6 +38,6 @@ jobs:
           ansible-lint -p test-playbook.yml
 
       - name: Lint Molecule Example
-        working-directory: examples/vagrant
+        working-directory: examples/molecule/apache
         run: |-
-          ansible-lint -p test-playbook.yml
+          ansible-lint -p molecule/default/converge.yml

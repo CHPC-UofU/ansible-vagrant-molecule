@@ -1,4 +1,4 @@
-name: "Lint Ansible Roles"
+name: "Lint Vagrant Ansible Role"
 
 on:
   pull_request:
@@ -33,11 +33,6 @@ jobs:
             ansible-lint
 
       - name: Lint Vagrant Example
-        working-directory: examples/vagrant
-        run: |-
-          ansible-lint -p test-playbook.yml
-
-      - name: Lint Molecule Example
         working-directory: examples/vagrant
         run: |-
           ansible-lint -p test-playbook.yml

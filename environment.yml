@@ -10,4 +10,4 @@ dependencies:
   - ansible-lint
   - pip:
       - molecule
-      - molecule-docker # or molecule-podman
+      - molecule-podman # or molecule-docker

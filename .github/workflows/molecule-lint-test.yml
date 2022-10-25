@@ -46,13 +46,6 @@ jobs:
   molecule:
     name: Molecule
     runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        distro:
-          - rockylinux8.6
-          - centos7
-          - ubuntu2004
-      fail-fast: false
 
     steps:
       - name: Check out repo
@@ -80,4 +73,3 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}

@@ -1,0 +1,17 @@
+---
+- name: Install python packages
+  dnf:
+    name:
+      - gcc
+      - python39
+      - python3-pip
+      - python3-devel
+      - openssl-devel
+      - python3-libselinux
+    state: present
+  become: yes
+- name: Install podman
+  dnf:
+    name: podman
+    state: latest
+  become: yes

@@ -1,0 +1,4 @@
+---
+# defaults file for molecule_install
+venv_path: ~/Ansible
+driver: podman

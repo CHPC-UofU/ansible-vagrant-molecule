@@ -52,6 +52,7 @@ jobs:
           - rockylinux8.6
           - centos7
           - ubuntu2004
+      fail-fast: false
 
     steps:
       - name: Check out repo

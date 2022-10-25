@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - examples/vagrant/**
   push:
     branches:
       - main
+    paths:
+      - examples/vagrant/**
 
 jobs:
   lint:

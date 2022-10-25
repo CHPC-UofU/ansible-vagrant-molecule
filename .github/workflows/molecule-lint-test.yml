@@ -75,6 +75,7 @@ jobs:
             molecule[docker]
 
       - name: Run Molecule tests
+        working-directory: ./${{ env.CHECKOUT_PATH }}/examples/molecule/apache
         run: molecule test
         env:
           PY_COLORS: '1'

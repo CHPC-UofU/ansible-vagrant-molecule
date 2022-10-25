@@ -8,7 +8,7 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: instance
+  - name: rocky
     image: ghcr.io/chpc-uofu/container-rockylinux8.6-ansible:latest
     command: ""
     volumes:
@@ -17,6 +17,28 @@ platforms:
       - SYS_ADMIN
     published_ports:
       - 8080:80
+    privileged: true
+    pre_build_image: true
+  - name: cent
+    image: ghcr.io/chpc-uofu/container-centos7-ansible:latest
+    command: ""
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    published_ports:
+      - 8081:80
+    privileged: true
+    pre_build_image: true
+  - name: ubuntu
+    image: ghcr.io/chpc-uofu/container-ubuntu2004-ansible:latest
+    command: ""
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    published_ports:
+      - 8082:80
     privileged: true
     pre_build_image: true
 provisioner:

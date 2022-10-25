@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: rocky8
+    image: rockylinux:8.6
+    pre_build_image: true
+  - name: rocky9
+    image: rockylinux:9
+    pre_build_image: true
+  - name: rocky8CHPC
+    image: ghcr.io/chpc-uofu/container-rockylinux8.6.20227707-ansible:latest
+    pre_build_image: false
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

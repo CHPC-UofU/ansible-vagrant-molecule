@@ -1,0 +1,43 @@
+---
+# tasks file for docker-install-RHEL
+- name: Install python packages
+  dnf:
+    name:
+      - gcc
+      - python39
+      - python3-pip
+      - python3-devel
+      - openssl-devel
+      - python3-libselinux
+    state: present
+  become: yes
+- name: Add signing key
+  ansible.builtin.rpm_key:
+    key: "https://download.docker.com/linux/centos/gpg"
+    state: present
+  become: yes
+- name: Add repository into repo.d list
+  ansible.builtin.yum_repository:
+    name: docker
+    description: docker repository
+    baseurl: "https://download.docker.com/linux/centos/$releasever/$basearch/stable"
+    enabled: true
+    gpgcheck: true
+    gpgkey: "https://download.docker.com/linux/centos/gpg"
+  become: yes
+- name: Remove Conflicting Packages
+  dnf:
+    name:
+      - podman
+      - buildah
+    update_cache: yes
+    state: absent
+  become: yes
+- name: Install Docker packages
+  dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+  become: yes

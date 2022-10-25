@@ -13,6 +13,10 @@ platforms:
     command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    published_ports:
+      - 8080:80
     privileged: true
     pre_build_image: true
 provisioner:

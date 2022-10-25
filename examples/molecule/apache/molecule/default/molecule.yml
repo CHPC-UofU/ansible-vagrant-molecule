@@ -1,12 +1,9 @@
 ---
+role_name_check: 1
 dependency:
   name: galaxy
 driver:
   name: podman
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
 platforms:
   - name: rocky
     image: ghcr.io/chpc-uofu/container-rockylinux8.6-ansible:latest

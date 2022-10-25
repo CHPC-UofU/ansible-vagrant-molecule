@@ -1,0 +1,82 @@
+name: "Lint and test Molecule Ansible Role"
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - examples/molecule/**
+  push:
+    branches:
+      - main
+    paths:
+      - examples/molecule/**
+
+env:
+  CHECKOUT_PATH: expanse.apache
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          path: ./${{ env.CHECKOUT_PATH }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Python packages
+        uses: BSFishy/pip-action@v1
+        with:
+          packages: |
+            yamllint
+
+      - name: Lint Molecule Example
+        working-directory: ./${{ env.CHECKOUT_PATH }}/examples/molecule/apache
+        run: |-
+          yamllint .
+
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        distro:
+          - rockylinux8.6
+          - centos7
+          - ubuntu2004
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          path: ./${{ env.CHECKOUT_PATH }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Python packages
+        uses: BSFishy/pip-action@v1
+        with:
+          packages: |
+            ansible
+            docker
+            molecule[docker]
+
+      - name: Run Molecule tests
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_DRIVER_NAME: docker

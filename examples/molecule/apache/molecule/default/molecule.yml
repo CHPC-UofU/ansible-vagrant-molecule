@@ -3,14 +3,10 @@ role_name_check: 1
 dependency:
   name: galaxy
 driver:
-  name: ${MOLECULE_DRIVER_NAME:-podman}
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
+  name: podman
 platforms:
   - name: instance
-    image: ghcr.io/chpc-uofu/container-${MOLECULE_DISTRO:-rockylinux8.6}-ansible:latest
+    image: "ghcr.io/chpc-uofu/container-${MOLECULE_DISTRO:-rockylinux8.6}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

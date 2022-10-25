@@ -76,9 +76,8 @@ jobs:
 
       - name: Run Molecule tests
         working-directory: ./${{ env.CHECKOUT_PATH }}/examples/molecule/apache
-        run: molecule test
+        run: molecule test --driver-name docker
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
-          MOLECULE_DRIVER_NAME: docker
